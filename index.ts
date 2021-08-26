@@ -1,37 +1,37 @@
-const operation = document.querySelector('#operations') as HTMLInputElement
-const operand1 = document.querySelector('#operand1') as HTMLInputElement
-const operand2 = document.querySelector('#operand2') as HTMLInputElement
-const answerDiv = document.querySelector('#answer') as HTMLInputElement
-const InputForm = document.querySelector('form')!;
+declare const math:any 
+const buttons = document.querySelectorAll<HTMLElement>('button')!;
+const displayField = document.querySelector<HTMLElement>('#display')!
 
-console.log(answerDiv)
+const operators = ['+','*','/','=']
+const operatorsWithMinus = ['+','-','*','/','=']
 
-const add = (a: number, b: number): number => {
-    return a + b;
+
+for(let i=0;i<buttons.length;i++){
+    buttons[i].addEventListener('click', () => {
+        let btnText:any = buttons[i].textContent
+        let dispContent:string = displayField.textContent!
+        if(buttons[i].textContent === 'C')
+           displayField.textContent = ''
+
+        else if(buttons[i].textContent === 'DEL')
+           displayField.textContent = dispContent.slice(0,-1)
+
+        //If the expression starts with an operator ('-' is allowed)
+        else if(displayField.textContent==='' && operators.findIndex((opr) => opr === buttons[i].textContent) !== -1)
+            displayField.textContent = dispContent
+
+        //If the expression's last char is an operator and another operator is clicked
+        else if( operatorsWithMinus.findIndex((opr) => opr === buttons[i].textContent) !== -1 && operatorsWithMinus.findIndex((opr) => opr === dispContent.slice(-1)) !== -1)
+            displayField.textContent = dispContent
+
+        else if(buttons[i].textContent === '='){
+            dispContent = math.evaluate(dispContent)
+            displayField.textContent = dispContent
+        } 
+        
+        else{
+            displayField.textContent+=btnText
+        }
+         
+    })
 }
-
-const subtract = (a: number, b: number): number => {
-    return a - b;
-}
-
-const multiply = (a: number, b: number): number => {
-    return a * b;
-}
-
-const divide = (a: number, b: number): number => {
-    if(a===0 && b ===0)
-      return 0;
-    return a / b;
-}
-
-InputForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let answer:number=0;
-    switch (operation.value) {
-        case 'addition'      : answer = add(operand1.valueAsNumber, operand2.valueAsNumber); break;
-        case 'subtraction'   : answer = subtract(operand1.valueAsNumber, operand2.valueAsNumber); break;
-        case 'multiplication': answer = multiply(operand1.valueAsNumber, operand2.valueAsNumber); break;
-        case 'division'      : answer = divide(operand1.valueAsNumber, operand2.valueAsNumber); break;
-    }  
-answerDiv.innerHTML=`<p>${answer}</p>`
-})

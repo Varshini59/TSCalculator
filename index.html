@@ -1,51 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <script src='index.js' defer></script>
-    <style>
-        form {
-            display: grid;
-            place-items: center;
-            height: 40vh;
-        }
-        div p{
-            display: grid;
-            place-items: center;
-        }
-    </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="index.js" defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.js'></script>
     <title>TS Calculator</title>
-</head>
-
-<body>
-    <form>
-        <div>
-            <label for="operations">Operation</label>
-            <select id="operations" name="operation">
-                <option value="addition">Addition</option>
-                <option value="subtraction">Subtraction</option>
-                <option value="multiplication">Multiplication</option>
-                <option value="division">Division</option>
-            </select>
+  </head>
+  <body>
+    <div id="display"></div>
+    <div id='keys'>
+        <div id="numberPad" class="grid-container">
+            <button class='grid-item grid-item-1'>7</button>
+            <button class='grid-item grid-item-2'>8</button>
+            <button class='grid-item grid-item-3'>9</button>
+            <button class='grid-item grid-item-1'>+</button>
+            <button class='grid-item grid-item-4'>4</button>
+            <button class='grid-item grid-item-5'>5</button>
+            <button class='grid-item grid-item-6'>6</button>
+            <button class='grid-item grid-item-2'>-</button>
+            <button class='grid-item grid-item-7'>1</button>
+            <button class='grid-item grid-item-8'>2</button>
+            <button class='grid-item grid-item-9'>3</button>
+            <button class='grid-item grid-item-3'>*</button>
+            <button class='grid-item grid-item-10'>C</button>
+            <button class='grid-item grid-item-11'>0</button>
+            <button class='grid-item grid-item-12'>DEL</button>
+            <button class='grid-item grid-item-4'>/</button>
         </div>
-
-        <div>
-            <label for='operand1'>Operand 1 <input id='operand1' name='name' type='number' required></label>
-        </div>
-        <div>
-            <label for='operand2'>Operand 2 <input id='operand2' name='age' type='number' required></label>
-        </div>
-
-        <input type='submit'>
-    </form>
-    <div id='answer'>
-        <p>Answer</p>
+        <button>=</button>
     </div>
-</body>
-
+  
+  </body>
 </html>

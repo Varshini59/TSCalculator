@@ -1,40 +1,28 @@
 "use strict";
-const operation = document.querySelector('#operations');
-const operand1 = document.querySelector('#operand1');
-const operand2 = document.querySelector('#operand2');
-const answerDiv = document.querySelector('#answer');
-const InputForm = document.querySelector('form');
-console.log(answerDiv);
-const add = (a, b) => {
-    return a + b;
-};
-const subtract = (a, b) => {
-    return a - b;
-};
-const multiply = (a, b) => {
-    return a * b;
-};
-const divide = (a, b) => {
-    if (a === 0 && b === 0)
-        return 0;
-    return a / b;
-};
-InputForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let answer = 0;
-    switch (operation.value) {
-        case 'addition':
-            answer = add(operand1.valueAsNumber, operand2.valueAsNumber);
-            break;
-        case 'subtraction':
-            answer = subtract(operand1.valueAsNumber, operand2.valueAsNumber);
-            break;
-        case 'multiplication':
-            answer = multiply(operand1.valueAsNumber, operand2.valueAsNumber);
-            break;
-        case 'division':
-            answer = divide(operand1.valueAsNumber, operand2.valueAsNumber);
-            break;
-    }
-    answerDiv.innerHTML = `<p>${answer}</p>`;
-});
+const buttons = document.querySelectorAll('button');
+const displayField = document.querySelector('#display');
+const operators = ['+', '*', '/', '='];
+const operatorsWithMinus = ['+', '-', '*', '/', '='];
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', () => {
+        let btnText = buttons[i].textContent;
+        let dispContent = displayField.textContent;
+        if (buttons[i].textContent === 'C')
+            displayField.textContent = '';
+        else if (buttons[i].textContent === 'DEL')
+            displayField.textContent = dispContent.slice(0, -1);
+        //If the expression starts with an operator ('-' is allowed)
+        else if (displayField.textContent === '' && operators.findIndex((opr) => opr === buttons[i].textContent) !== -1)
+            displayField.textContent = dispContent;
+        //If the expression's last char is an operator and another operator is clicked
+        else if (operatorsWithMinus.findIndex((opr) => opr === buttons[i].textContent) !== -1 && operatorsWithMinus.findIndex((opr) => opr === dispContent.slice(-1)) !== -1)
+            displayField.textContent = dispContent;
+        else if (buttons[i].textContent === '=') {
+            dispContent = math.evaluate(dispContent);
+            displayField.textContent = dispContent;
+        }
+        else {
+            displayField.textContent += btnText;
+        }
+    });
+}
